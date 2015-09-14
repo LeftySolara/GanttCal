@@ -32,3 +32,7 @@ Makefile*
 #QtCtreator Qml
 *.qmlproject.user
 *.qmlproject.user.*
+
+# Sublime Text files
+*.sublime-project
+*.sublime-workspace
