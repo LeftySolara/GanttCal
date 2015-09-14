@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "newemployeewidget.h"
+#include "newemployeedialog.h"
 #include "ui_newemployeewidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -17,6 +17,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_new_employee_triggered()
 {
-    NewEmployeeWidget *new_employee_widget = new NewEmployeeWidget();
-    new_employee_widget->show();
+    NewEmployeeDialog *new_employee_dialog = new NewEmployeeDialog();
+    new_employee_dialog->show();
 }

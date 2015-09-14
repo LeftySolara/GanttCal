@@ -15,10 +15,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    newemployeewidget.cpp
+    newemployeedialog.cpp
 
 HEADERS  += mainwindow.h \
-    newemployeewidget.h
+    newemployeedialog.h
 
 FORMS    += mainwindow.ui \
-    newemployeewidget.ui
+    newemployeedialog.ui
