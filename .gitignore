@@ -9,7 +9,11 @@
 *.so
 *.dll
 *.dylib
+*.out
 
 # Sublime Text files
 *.sublime-project
 *.sublime-workspace
+
+# database files
+*.db
