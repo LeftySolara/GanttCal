@@ -1,4 +1,5 @@
 #include "databaseHandler.h"
+#include <stdio.h>
 
 DatabaseHandler::DatabaseHandler(const char *databaseName)
 {
@@ -10,6 +11,24 @@ DatabaseHandler::~DatabaseHandler()
 {
   int close_db_status = sqlite3_close(db);
   errMsgs.push_back(close_db_status);
+}
+
+// Callback function for sqlite3_exec() calls that return two or more rows of data
+static int callback(void *NotUsed, int argc, char **argv, char** azColName)
+{
+  for (int i = 0; i < argc; i++)
+    printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+}
+
+// Wrapper for executing SQL statements with sqlite3
+// Parameters:
+//    1) const char *stmt: the SQL statement to be executed
+//    2) void *callback_arg: first argument to callback function
+//    3) char *zErrMsg: error code to return from sqlite3_exec() call
+void DatabaseHandler::execute_sql(const char *stmt, void *callbackArg=0, char *zErrMsg=0)
+{
+  int sql_exec_status = sqlite3_exec(db, stmt, callback, callbackArg, &zErrMsg);
+  errMsgs.push_back(zErrMsg);
 }
 
 // report whether any errors occured

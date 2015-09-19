@@ -4,25 +4,20 @@
 #define DATABASE_HANDLER_H
 
 #include <vector>
-using std::vector;
-#include <string>
-using std::string;
 #include <utility>
-using std::pair;
 #include <sqlite3.h>
 
 class DatabaseHandler
 {
 private:
   sqlite3 *db;
-  vector<string> columns;
-  vector<int> errMsgs;  // error codes for sqlite calls
+  std::vector<int> errMsgs;  // error codes for sqlite calls
 public:
-  typedef vector<pair<string,string>> column;
   DatabaseHandler(const char *databaseName);
   ~DatabaseHandler();
+  static int callback(void *NotUsed, int argc, char **argv, char** azColName);
+  void execute_sql(const char *stmt, void *callbackArg, char *zErrMsg);
   bool error_check();
-  // int create_table(string tblName, vector<column> columns);
 };
 
 #endif // DATABASE_HANDLER_H
