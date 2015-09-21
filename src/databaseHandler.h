@@ -16,7 +16,7 @@ public:
   DatabaseHandler(const char *databaseName);
   ~DatabaseHandler();
   static int callback(void *NotUsed, int argc, char **argv, char** azColName);
-  void execute_sql(const char *stmt, void *callbackArg, char *zErrMsg);
+  int execute(const char *stmt, void *callbackArg=0, char *zErrMsg=0);
   bool error_check();
 };
 
