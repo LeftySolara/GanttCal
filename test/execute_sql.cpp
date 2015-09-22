@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "../src/databaseHandler.h"
+#include "../include/databaseHandler.h"
 
 SCENARIO( "SQL statements can be evaluated using the DatabaseHandler wrapper",
   "[database, sql, DatabaseHandler, wrapper]" )

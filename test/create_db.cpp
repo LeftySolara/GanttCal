@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "../src/databaseHandler.h"
+#include "../include/databaseHandler.h"
 
 TEST_CASE ("database connections can be created", "[database, creation]") {
 

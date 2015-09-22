@@ -1,4 +1,4 @@
-#include "databaseHandler.h"
+#include "../include/databaseHandler.h"
 #include <stdio.h>
 
 DatabaseHandler::DatabaseHandler(const char *databaseName)
