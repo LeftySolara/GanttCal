@@ -42,6 +42,7 @@ SCENARIO( "SQL statements can be evaluated using the Database wrapper",
         REQUIRE( insert_status1 == 0 );
         REQUIRE( insert_status2 == 0 );
         REQUIRE( insert_status3 == 0 );
+        testDB->execute("SELECT * FROM employees");
       }
     }
     delete testDB;
