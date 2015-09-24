@@ -11,10 +11,6 @@ Employee::Employee(int idNum, const char *first, const char *last, const char *c
 
 Employee::~Employee()
 {
-  int lim = shifts.size();
-  for (int i = 0; i < lim; ++i) {
-    delete shifts[i];
-  }
   shifts.clear();
 }
 
@@ -22,21 +18,31 @@ void Employee::add_shift(Days day, time_t start, time_t end)
 {
   // if (start > end)
   //   return INVALID_INPUT_FORMAT;
-  Shift newShift = new Shift;
+  Shift *newShift = new Shift;
   newShift->day = day;
   newShift->startTime = start;
   newShift->endTime = end;
-  shifts.push_back(newShift);
+  shifts.push_back(*newShift);
 }
 
-int Employee::remove_shift(Days day, time_t start)
+void Employee::remove_shift(Days day, time_t start)
 {
-  int lim = shifts.size();
-  for (int i = 0; i < lim; ++i) {
-    if (shifts[i].day == day && shifts[i].startTime == start) {
-      shifts.erase(i);
-      // return 0;
-    }
-  }
+  // int lim = shifts.size();
+  // for (auto i = shifts.begin(); i != shifts.end(); ++i) {
+  //   if (*i.day == day && *i.startTime == start) {
+  //     shifts.erase(i);
+  //     // return 0;
+  //   }
+  // }
   // return SHIFT_NOT_FOUND;
+}
+
+double Employee::hours_count()
+{
+  double hours = 0.0;
+  for (Shift s : shifts) {
+    time_t seconds = s.endTime - s.startTime;
+    hours += (seconds / 360);
+  }
+  return hours;
 }
