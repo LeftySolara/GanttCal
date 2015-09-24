@@ -17,4 +17,4 @@ execute_sql.o: test/execute_sql.cpp include/databaseHandler.h
 
 .PHONY: clean
 clean:
-	rm test/alltests $(OBJ) *.db .makefile.swp
+	rm test/alltests $(OBJ) *.db

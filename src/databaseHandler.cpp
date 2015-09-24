@@ -17,10 +17,11 @@ DatabaseHandler::~DatabaseHandler()
 }
 
 // Callback function for sqlite3_exec() calls that return two or more rows of data
-int DatabaseHandler::callback(void *NotUsed, int argc, char **argv, char** azColName)
+int DatabaseHandler::callback(void *NotUsed, int argc, char **argv, char **azColName)
 {
-  for (int i = 0; i < argc; i++)
+  for (int i = 0; i < argc; i++) {
     printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
+  }
 }
 
 // Wrapper for executing SQL statements with sqlite3
