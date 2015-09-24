@@ -1,17 +1,17 @@
-// Unit tests for executing SQL statements using DatabaseHandler
+// Unit tests for executing SQL statements using database wrapper
 // Tests:
 //    - creating a table
 //    - inserting values into a table
 
 #include "catch.hpp"
-#include "../include/databaseHandler.h"
+#include "../include/database.h"
 
-SCENARIO( "SQL statements can be evaluated using the DatabaseHandler wrapper",
-  "[database, sql, DatabaseHandler, wrapper]" )
+SCENARIO( "SQL statements can be evaluated using the Database wrapper",
+  "[database, sql, wrapper]" )
 {
   GIVEN( "A valid database connection" )
   {
-    DatabaseHandler *testDB = new DatabaseHandler("sql_exec.db");
+    Database *testDB = new Database("sql_exec.db");
     REQUIRE( testDB->error_check() == false );
 
     WHEN( "A CREATE TABLE statement is given" )
