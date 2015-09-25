@@ -3,7 +3,7 @@
 
 TEST_CASE ("database connections can be created", "[database, creation]") {
 
-  Database *testDb = new Database("employee_test.db");
-  REQUIRE( testDb->error_check() == false );
-  delete testDb;
+  Database *test_db = new Database("employee_test.db");
+  REQUIRE( test_db->error_check() == false );
+  delete test_db;
 }

@@ -1,22 +1,21 @@
-// a wrapper for the sqlite3 api
+// a small wrapper for the sqlite3 C++ api
 
 #ifndef DATABASE_H
 #define DATABASE_H
 
 #include <vector>
-#include <utility>
 #include <sqlite3.h>
 
 class Database
 {
 private:
-  sqlite3 *db;
-  std::vector<int> errMsgs;  // error codes for sqlite calls
+  sqlite3 *db_;
+  std::vector<int> error_messages_;  // error codes for sqlite3 calls
 public:
-  Database(const char *databaseName);
+  Database(const char *file_name);
   ~Database();
   static int callback(void *NotUsed, int argc, char **argv, char** azColName);
-  int execute(const char *stmt, void *callbackArg=0, char *zErrMsg=0);
+  int execute(const char *stmt, void *callback_arg=0, char *zErrMsg=0);
   bool error_check();
 };
 
