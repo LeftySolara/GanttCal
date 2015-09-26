@@ -2,6 +2,7 @@
 // Tests:
 //    - creating a table
 //    - inserting values into a table
+//    - deleting values from a table
 
 #include "catch.hpp"
 #include "../include/database.h"
@@ -42,6 +43,17 @@ SCENARIO( "SQL statements can be evaluated using the Database wrapper",
         REQUIRE( insert_exit_status_1 == 0 );
         REQUIRE( insert_exit_status_2 == 0 );
         REQUIRE( insert_exit_status_3 == 0 );
+        test_db->execute("SELECT * FROM employees");
+      }
+    }
+
+    WHEN ( "A DELETE statement is given" )
+    {
+      int delete_exit_status = test_db->execute("DELETE FROM employees WHERE last_name = 'Johnson'");
+
+      THEN ( "The specified row is removed" )
+      {
+        REQUIRE( delete_exit_status == 0 );
         test_db->execute("SELECT * FROM employees");
       }
     }
