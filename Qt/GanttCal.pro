@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QTPLUGIN += -plugin-sql-sqlite
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -14,10 +15,12 @@ TEMPLATE = app
 
 SOURCES +=\
     ../src/main.cpp \
-    ../src/mainwindow.cpp
+    ../src/mainwindow.cpp \
+    ../src/employee.cpp
 
 HEADERS  += \
-    ../include/mainwindow.h
+    ../include/mainwindow.h \
+    ../include/employee.h
 
 FORMS    += \
     ../Qt/mainwindow.ui
