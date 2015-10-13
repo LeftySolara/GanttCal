@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPalette>
 
 namespace Ui {
 class MainWindow;
@@ -19,8 +20,11 @@ private slots:
     void on_actionAbout_QT_triggered();
     void on_actionQuit_triggered();
 
+    void on_action_New_Employee_triggered();
+
 private:
     Ui::MainWindow *ui;
+    QPalette *main_palette;
 };
 
 #endif // MAINWINDOW_H

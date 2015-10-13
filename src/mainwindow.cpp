@@ -1,4 +1,5 @@
 #include "../include/mainwindow.h"
+#include "../include/addemployeedialog.h"
 #include "ui_mainwindow.h"
 #include <QApplication>
 
@@ -22,4 +23,10 @@ void MainWindow::on_actionAbout_QT_triggered()
 void MainWindow::on_actionQuit_triggered()
 {
     QApplication::exit();
+}
+
+void MainWindow::on_action_New_Employee_triggered()
+{
+    AddEmployeeDialog add_dialog;
+    add_dialog.exec();
 }

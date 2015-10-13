@@ -16,11 +16,16 @@ TEMPLATE = app
 SOURCES +=\
     ../src/main.cpp \
     ../src/mainwindow.cpp \
-    ../src/employee.cpp
+    ../src/employee.cpp \
+    ../src/addemployeedialog.cpp
 
 HEADERS  += \
     ../include/mainwindow.h \
-    ../include/employee.h
+    ../include/employee.h \
+    addemployeedialog.h \
+    ../include/addemployeedialog.h \
+    ../include/database.h
 
 FORMS    += \
-    ../Qt/mainwindow.ui
+    ../Qt/mainwindow.ui \
+    addemployeedialog.ui
