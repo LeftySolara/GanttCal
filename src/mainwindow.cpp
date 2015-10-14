@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    gantt_db = new Database("ganttcal.sqlite");
 }
 
 MainWindow::~MainWindow()
