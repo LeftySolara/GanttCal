@@ -1,15 +1,15 @@
 #include "../include/database.h"
-#include <QDebug>
+#include <QtDebug>
 
 Database::Database(QString filename)
 {
-    db.addDatabase("QSQLITE", "Connection");
+    db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(filename);
 
     if (!db.open())
-        qDebug() << "Failed to open database";
+        qDebug("Failed to open database");
     else
-        qDebug() << "Database opened successfully";
+        qDebug("Database opened successfully");
 }
 
 Database::~Database()

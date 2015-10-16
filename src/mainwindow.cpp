@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    gantt_db = new Database("ganttcal.sqlite");
+    gantt_db = new Database("/home/jalen/codebase/GanttCal/resources/employeeinfo.sqlite");
 }
 
 MainWindow::~MainWindow()
