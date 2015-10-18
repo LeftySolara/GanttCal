@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define EMPLOYEE_DB_FILE "../resources/employeeinfo.sqlite"
+
 #include <QMainWindow>
 #include <QPalette>
 #include "../include/database.h"
@@ -24,7 +26,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Database *gantt_db;
+    Database *employee_db;
     QPalette *main_palette;
 };
 

@@ -8,12 +8,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    gantt_db = new Database("/home/jalen/codebase/GanttCal/resources/employeeinfo.sqlite");
+
+    employee_db = new Database(EMPLOYEE_DB_FILE);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+//    delete db_file;
+    delete employee_db;
 }
 
 void MainWindow::on_actionAbout_QT_triggered()
