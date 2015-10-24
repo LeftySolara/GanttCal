@@ -54,3 +54,8 @@ Database::~Database()
 {
     db.close();
 }
+
+bool Database::add_employee(int id, QString first, QString last, QString color, unsigned int max_hours)
+{
+    // execute query to add to Employee table in db
+}
