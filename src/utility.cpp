@@ -10,22 +10,21 @@ namespace utility
         else
         {
            QTextStream in(inputfile);
-           QString statement;
+           QString statement = "";
            while (!in.atEnd())
            {
               QString line = in.readLine();
               // ignore comments
-              if (line.startsWith("--"))
+              if (line.startsWith("--") || line.length() == 0)
                   continue;
-              // assumes queries are separated by blank lines
-              if (line.length() == 0)
-                  statement = "";
               statement += line;
               if (statement.endsWith(";")) {
                   // remove semicolon at end
                   statement.chop(1);
-                  if (qry->prepare(statement))
+                  if (qry->prepare(statement)) {
                       qry->exec();
+                      statement = "";
+                  }
                   else
                       return false;
               }

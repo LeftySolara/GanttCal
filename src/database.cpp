@@ -7,34 +7,47 @@
 
 Database::Database(QString filename)
 {
-    // Check if database file exists. If not, create it.
     QFile dbfile;
     dbfile.setFileName(filename);
+
     if (!dbfile.exists()) {
         qDebug("Could not find database file. Attempting to create...");
         dbfile.open(QIODevice::ReadWrite);
         if (!dbfile.exists())
             errmsg.showMessage("Error creating database file");
         dbfile.close();
-    }
 
-    // Create the database connection
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(filename);
-    db.open();
-    qry = QSqlQuery(db);
+        // Create the database connection
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName(filename);
+        if (!db.open()) {
+            qDebug() << "Error opening database file";
+            QCoreApplication::exit();
+        }
+        qry = QSqlQuery(db);
 
-    // Run SQL script to initialize database
-    QFile scriptfile;
-    scriptfile.setFileName(SQL_INIT_SCRIPT);
-    if (!scriptfile.exists()) {
-        errmsg.showMessage("Error initializing database: script not found");
-        QCoreApplication::exit();
+        // Run SQL script to initialize database
+        QFile scriptfile;
+        scriptfile.setFileName(SQL_INIT_SCRIPT);
+        if (!scriptfile.exists()) {
+            errmsg.showMessage("Error initializing database: script not found");
+            QCoreApplication::exit();
+        }
+        if (utility::read_sql(&scriptfile, &qry))
+            qDebug() << "Database initialized successfully";
+        else
+            errmsg.showMessage("Failed to initialize database");
     }
-    if (utility::read_sql(&scriptfile, &qry))
-        qDebug() << "Database initialized successfully";
-    else
-        errmsg.showMessage("Failed to initialize database");
+    else {
+        // Create the database connection
+        db = QSqlDatabase::addDatabase("QSQLITE");
+        db.setDatabaseName(filename);
+        if (!db.open()) {
+            qDebug() << "Error opening database file";
+            QCoreApplication::exit();
+        }
+        qry = QSqlQuery(db);
+    }
 }
 
 Database::~Database()
