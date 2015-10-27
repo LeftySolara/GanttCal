@@ -8,7 +8,7 @@ BEGIN TRANSACTION;
 
 -- Table meta: holds info on the database itself
 CREATE TABLE meta (
-    version        DECIMAL NOT NULL ON CONFLICT ROLLBACK,
+    version        REAL    NOT NULL ON CONFLICT ROLLBACK,
     employee_count INT     NOT NULL ON CONFLICT ROLLBACK
                            DEFAULT (0),
     shift_count    INT     NOT NULL ON CONFLICT ROLLBACK
@@ -16,6 +16,8 @@ CREATE TABLE meta (
     next_id        INT     DEFAULT (0)
                            NOT NULL ON CONFLICT ROLLBACK
 );
+
+INSERT INTO meta (version, employee_count, shift_count, next_id) VALUES (0.1, 0, 0, 0);
 
 
 -- Table weekday: just a list of days

@@ -53,6 +53,35 @@ void Database::create_connection(QString filename)
     qry = QSqlQuery(db);
 }
 
+float Database::version()
+{
+    qry.exec("SELECT version FROM meta");
+    qry.next();
+    return qry.value("version").toFloat();
+}
+
+int Database::employee_count()
+{
+    qry.exec("SELECT employee_count FROM meta");
+    qry.next();
+    return qry.value("employee_count").toInt();
+}
+
+int Database::shift_count()
+{
+    qry.exec("SELECT shift_count FROM meta");
+    qry.next();
+    return qry.value("shift_count").toInt();
+}
+
+int Database::next_id()
+{
+    // there should only be one row in this table
+    qry.exec("SELECT next_id FROM meta");
+    qry.next();
+    return qry.value("next_id").toInt();
+}
+
 bool Database::add_employee(int id, QString first, QString last, QString color, unsigned int max_hours)
 {
     // execute query to add to Employee table in db

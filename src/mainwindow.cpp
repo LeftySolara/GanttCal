@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-//    delete db_file;
     delete employee_db;
 }
 
