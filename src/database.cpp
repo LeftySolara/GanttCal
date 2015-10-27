@@ -10,6 +10,7 @@ Database::Database(QString filename)
     QFile dbfile;
     dbfile.setFileName(filename);
 
+    // if the database doesn't exist, attempt to create it
     if (!dbfile.exists()) {
         qDebug("Could not find database file. Attempting to create...");
         dbfile.open(QIODevice::ReadWrite);
@@ -17,14 +18,8 @@ Database::Database(QString filename)
             errmsg.showMessage("Error creating database file");
         dbfile.close();
 
-        // Create the database connection
-        db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(filename);
-        if (!db.open()) {
-            qDebug() << "Error opening database file";
-            QCoreApplication::exit();
-        }
-        qry = QSqlQuery(db);
+        // create connection to db so we can query it
+        create_connection(filename);
 
         // Run SQL script to initialize database
         QFile scriptfile;
@@ -38,21 +33,24 @@ Database::Database(QString filename)
         else
             errmsg.showMessage("Failed to initialize database");
     }
-    else {
-        // Create the database connection
-        db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(filename);
-        if (!db.open()) {
-            qDebug() << "Error opening database file";
-            QCoreApplication::exit();
-        }
-        qry = QSqlQuery(db);
-    }
+    else
+        create_connection(filename);
 }
 
 Database::~Database()
 {
     db.close();
+}
+
+void Database::create_connection(QString filename)
+{
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(filename);
+    if (!db.open()) {
+        qDebug() << "Error opening database file";
+        QCoreApplication::exit();
+    }
+    qry = QSqlQuery(db);
 }
 
 bool Database::add_employee(int id, QString first, QString last, QString color, unsigned int max_hours)
