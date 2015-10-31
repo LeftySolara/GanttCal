@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #define EMPLOYEE_DB_FILE "../resources/employeeinfo.sqlite"
-#define VERSION 0.1
 
 #include <QMainWindow>
 #include <QPalette>

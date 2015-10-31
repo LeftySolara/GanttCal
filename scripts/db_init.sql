@@ -47,7 +47,7 @@ CREATE TABLE employee (
                               DEFAULT (0),
     displayed     BOOLEAN     NOT NULL ON CONFLICT ROLLBACK
                               DEFAULT (1),
-    display_color VARCHAR (6) DEFAULT ('869AE9')
+    display_color VARCHAR (7) DEFAULT ('869AE9')
                               NOT NULL ON CONFLICT ROLLBACK
 );
 

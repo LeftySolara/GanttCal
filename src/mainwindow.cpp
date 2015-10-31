@@ -37,7 +37,9 @@ void MainWindow::on_action_New_Employee_triggered()
         QString color = add_dialog.get_color();
         unsigned int max_hours = add_dialog.get_max_hours();
 
-        // id is 0 until I write the function for fetching the correct number
-        employee_db->add_employee(0, first, last, color, max_hours);
+        if (!employee_db->add_employee(first, last, color, max_hours))
+            qDebug() << "Failed to add employee to database";
+        else
+            qDebug() << "Employee added successfully";
     }
 }

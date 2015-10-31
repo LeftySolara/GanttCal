@@ -14,7 +14,7 @@ public:
     int employee_count();
     int shift_count();
     int next_id();
-    bool add_employee(int id, QString first, QString last, QString color, unsigned int max_hours);
+    bool add_employee(QString first, QString last, QString color, unsigned int max_hours);
 //  remove_employee(int id);
 //  add_shift();
 //  remove_shift();

@@ -82,7 +82,32 @@ int Database::next_id()
     return qry.value("next_id").toInt();
 }
 
-bool Database::add_employee(int id, QString first, QString last, QString color, unsigned int max_hours)
+bool Database::add_employee(QString first, QString last, QString color, unsigned int max_hours)
 {
-    // execute query to add to Employee table in db
+    int id = next_id();
+    QString statement = "INSERT INTO employee (id_employee, last_name, first_name, max_hours, displayed, display_color) "
+                        "VALUES (:id_employee, :last_name, :first_name, :max_hours, :displayed, :display_color)";
+
+    if (!qry.prepare(statement)) {
+        qDebug() << qry.lastError().text();
+        return false;
+    }
+    qry.bindValue(":id_employee", id);
+    qry.bindValue(":last_name", last);
+    qry.bindValue(":first_name", first);
+    qry.bindValue(":max_hours", max_hours);
+    qry.bindValue(":displayed", 1);         // employee is displayed by default
+    qry.bindValue(":display_color", color);
+    if (!qry.exec()) {
+        qDebug() << qry.lastError().text();
+        return false;
+    }
+
+    // update next_id in meta table
+    if (!qry.prepare("UPDATE meta SET next_id = :next_id"))
+        return false;
+    qry.bindValue(":next_id", ++id);
+    qry.exec();
+
+    return true;
 }
