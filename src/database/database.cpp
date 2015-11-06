@@ -1,5 +1,5 @@
-#include "../include/database.h"
-#include "../include/utility.h"
+#include "database.h"
+#include "utility/utility.h"
 #include <QtDebug>
 #include <QFile>
 

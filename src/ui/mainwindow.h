@@ -1,11 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define EMPLOYEE_DB_FILE "../resources/employeeinfo.sqlite"
+#define EMPLOYEE_DB_FILE "../data/employeeinfo.sqlite"
 
 #include <QMainWindow>
 #include <QPalette>
-#include "../include/database.h"
+#include "database/database.h"
 
 namespace Ui {
 class MainWindow;

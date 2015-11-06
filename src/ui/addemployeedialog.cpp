@@ -1,4 +1,4 @@
-#include "../include/addemployeedialog.h"
+#include "addemployeedialog.h"
 #include "ui_addemployeedialog.h"
 #include <QColorDialog>
 

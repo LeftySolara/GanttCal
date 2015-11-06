@@ -1,4 +1,4 @@
-#include "../include/employee.h"
+#include "employee.h"
 // #define SHIFT_NOT_FOUND 1
 
 Employee::Employee(int id, const char *first, const char *last, const char *color)

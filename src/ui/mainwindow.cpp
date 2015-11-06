@@ -1,5 +1,5 @@
-#include "../include/mainwindow.h"
-#include "../include/addemployeedialog.h"
+#include "mainwindow.h"
+#include "addemployeedialog.h"
 #include "ui_mainwindow.h"
 #include <QApplication>
 
