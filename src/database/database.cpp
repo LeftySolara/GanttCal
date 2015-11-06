@@ -109,5 +109,13 @@ bool Database::add_employee(QString first, QString last, QString color, unsigned
     qry.bindValue(":next_id", ++id);
     qry.exec();
 
+    // update employee_count in meta table
+    int count = employee_count();
+    if (!qry.prepare("UPDATE meta SET employee_count = :count"))
+        return false;
+    qry.bindValue(":count", ++count);
+    qry.exec();
+
     return true;
 }
+
