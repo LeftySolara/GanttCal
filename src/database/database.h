@@ -2,6 +2,8 @@
 #define DATABASE_H
 
 #include <QtSql>
+#include <QSqlTableModel>
+#include <QTableView>
 #include <QErrorMessage>
 
 class Database
@@ -15,12 +17,14 @@ public:
     int shift_count();
     int next_id();
     bool add_employee(QString first, QString last, QString color, unsigned int max_hours);
-//  remove_employee(int id);
+//    bool remove_employee(int id);
 //  add_shift();
 //  remove_shift();
 
 private:
     QSqlDatabase db;
+    QSqlTableModel *model;
+    QTableView *view;
     QSqlQuery qry;
     QErrorMessage errmsg;
 };
