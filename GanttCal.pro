@@ -21,8 +21,7 @@ HEADERS += \
   src/employee/employee.h \
   src/ui/addemployeedialog.h \
   src/ui/mainwindow.h \
-  src/utility/utility.h \
-  src/main.h
+  src/utility/utility.h
 
 FORMS += \
   src/ui/addemployeedialog.ui \

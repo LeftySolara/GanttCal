@@ -40,19 +40,11 @@ Database::Database(QString filename)
     }
     else
         create_connection(filename);
-
-    model = new QSqlTableModel();;
-    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-
-    view = new QTableView;
-    view->setModel(model);
 }
 
 Database::~Database()
 {
     db.close();
-    delete model;
-    delete view;
 }
 
 void Database::create_connection(QString filename)

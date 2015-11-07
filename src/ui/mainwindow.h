@@ -27,6 +27,8 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Database *employee_db;
+    QSqlTableModel *model;
+    QTableView *view;
     QPalette *main_palette;
 };
 

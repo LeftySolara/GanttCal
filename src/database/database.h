@@ -8,6 +8,8 @@
 
 class Database
 {
+friend class MainWindow;
+
 public:
     Database(QString filename);
     ~Database();
@@ -23,8 +25,6 @@ public:
 
 private:
     QSqlDatabase db;
-    QSqlTableModel *model;
-    QTableView *view;
     QSqlQuery qry;
     QErrorMessage errmsg;
 };
