@@ -28,7 +28,7 @@ void MainWindow::on_actionQuit_triggered()
     QApplication::exit();
 }
 
-void MainWindow::on_action_New_Employee_triggered()
+void MainWindow::on_actionAdd_Employee_triggered()
 {
     AddEmployeeDialog add_dialog;
     if (add_dialog.exec() == QDialog::Accepted) {

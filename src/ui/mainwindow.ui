@@ -31,7 +31,6 @@
      <property name="title">
       <string>New...</string>
      </property>
-     <addaction name="action_New_Employee"/>
     </widget>
     <addaction name="menuNew"/>
     <addaction name="actionQuit"/>
@@ -52,9 +51,27 @@
     </property>
     <addaction name="actionAbout_QT"/>
    </widget>
+   <widget class="QMenu" name="menuEmployee">
+    <property name="title">
+     <string>Employee</string>
+    </property>
+    <addaction name="actionAdd_Employee"/>
+    <addaction name="actionEdit_Employee"/>
+    <addaction name="actionRemove_Employee"/>
+   </widget>
+   <widget class="QMenu" name="menuShift">
+    <property name="title">
+     <string>Shift</string>
+    </property>
+    <addaction name="actionAdd_Shift"/>
+    <addaction name="actionEdit_Shift"/>
+    <addaction name="actionRemove_Shift_2"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
+   <addaction name="menuEmployee"/>
+   <addaction name="menuShift"/>
    <addaction name="menuTools"/>
   </widget>
   <action name="actionAbout_QT">
@@ -67,12 +84,34 @@
     <string>Quit</string>
    </property>
   </action>
-  <action name="action_New_Employee">
+  <action name="actionAdd_Employee">
    <property name="text">
-    <string>Employee</string>
+    <string>Add Employee</string>
    </property>
-   <property name="toolTip">
-    <string>Create new employee</string>
+  </action>
+  <action name="actionEdit_Employee">
+   <property name="text">
+    <string>Edit Employee</string>
+   </property>
+  </action>
+  <action name="actionRemove_Employee">
+   <property name="text">
+    <string>Remove Employee</string>
+   </property>
+  </action>
+  <action name="actionAdd_Shift">
+   <property name="text">
+    <string>Add Shift</string>
+   </property>
+  </action>
+  <action name="actionEdit_Shift">
+   <property name="text">
+    <string>Edit Shift</string>
+   </property>
+  </action>
+  <action name="actionRemove_Shift_2">
+   <property name="text">
+    <string>Remove Shift</string>
    </property>
   </action>
  </widget>
