@@ -40,11 +40,25 @@ Database::Database(QString filename)
     }
     else
         create_connection(filename);
+
+    employee_model = new QSqlRelationalTableModel(0, db);
+    employee_model->setTable("employee");
+    employee_model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
+    employee_model->select();
+
+    shift_model = new QSqlRelationalTableModel(0, db);
+    shift_model->setTable("shift");
+    shift_model->setRelation(2, QSqlRelation("weekday", "id_weekday", "name"));
+    shift_model->setRelation(5, QSqlRelation("employee", "id_employee", "last_name"));
+    shift_model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
+    shift_model->select();
 }
 
 Database::~Database()
 {
     db.close();
+    delete employee_model;
+    delete shift_model;
 }
 
 void Database::create_connection(QString filename)

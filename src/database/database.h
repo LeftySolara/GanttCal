@@ -2,8 +2,7 @@
 #define DATABASE_H
 
 #include <QtSql>
-#include <QSqlTableModel>
-#include <QTableView>
+#include <QSqlRelationalTableModel>
 #include <QErrorMessage>
 
 class Database
@@ -26,6 +25,8 @@ public:
 private:
     QSqlDatabase db;
     QSqlQuery qry;
+    QSqlRelationalTableModel *employee_model;
+    QSqlRelationalTableModel *shift_model;
     QErrorMessage errmsg;
 };
 
