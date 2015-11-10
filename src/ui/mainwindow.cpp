@@ -10,12 +10,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     employee_db = new Database(EMPLOYEE_DB_FILE);
+
+    model = new QSqlTableModel(0, employee_db->db);
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+
+    view = new QTableView;
+    view->setModel(model);
+    view->show();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete employee_db;
+    delete model;
+    delete view;
 }
 
 void MainWindow::on_actionAbout_QT_triggered()
