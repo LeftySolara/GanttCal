@@ -1,33 +1,35 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
+#include <QColor>
 #include <vector>
-#include <time.h>
-
-enum Days {Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday};
-
-struct Shift
-{
-  unsigned short day;
-  time_t start_time;
-  time_t end_time;
-};
+#include "shift/shift.h"
 
 class Employee
 {
 private:
-  int id_; // foreign key for shift table in database
-  const char *display_color_;
-  const char *first_name_;
-  const char *last_name_;
-  std::vector<Shift> shifts_;
+  const int id;
+  QString first_name;
+  QString last_name;
+  QColor display_color;
+  std::vector<Shift> schedule;
 public:
-  Employee(int id, const char *first, const char *last, const char *color="#FFFFFF");
+  Employee(int new_id, QString first, QString last, QString color="#6FCAE5");
   ~Employee();
-  void add_shift(Days day, time_t start, time_t end);
-  void remove_shift(Days day, time_t start);
-  double hours();
-  int shift_count() { return shifts_.size(); }
+
+  void add_shift(Days day, QTime start, QTime end);
+  void remove_shift(Days day, QTime start);
+
+  void set_first_name(QString name);
+  void set_last_name(QString name);
+  void set_display_color(QColor color);
+  void set_display_color(QString color);
+
+  QString get_first_name();
+  QString get_last_name();
+  QColor get_display_color();
+  int get_shift_count();
+  double get_hours();
 };
 
 #endif // EMPLOYEE_H

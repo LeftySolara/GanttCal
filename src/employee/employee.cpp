@@ -1,48 +1,85 @@
 #include "employee.h"
-// #define SHIFT_NOT_FOUND 1
 
-Employee::Employee(int id, const char *first, const char *last, const char *color)
+Employee::Employee(int new_id, QString first, QString last, QString color) : id(new_id)
 {
-  id_ = id;
-  first_name_ = first;
-  last_name_ = last;
-  display_color_ = color;
+  first_name = first;
+  last_name = last;
+  display_color = QColor(color);
 }
 
 Employee::~Employee()
 {
-  shifts_.clear();
+  for (int i = 0; i < schedule.size(); ++i)
+    delete schedule[i];
+  schedule.clear();
 }
 
-void Employee::add_shift(Days day, time_t start, time_t end)
+void Employee::add_shift(Days day, QTime start, QTime end)
 {
-  // if (start > end)
-  //   return INVALID_INPUT_FORMAT;
   Shift *new_shift = new Shift;
   new_shift->day = day;
   new_shift->start_time = start;
   new_shift->end_time = end;
-  shifts_.push_back(*new_shift);
+  shifts.push_back(new_shift);
 }
 
-void Employee::remove_shift(Days day, time_t start)
+void Employee::remove_shift(Days day, QTime start)
 {
-  // int lim = shifts_.size();
-  // for (auto i = shifts_.begin(); i != shifts_.end(); ++i) {
-  //   if (*i.day == day && *i.start_time == start) {
-  //     shifts_.erase(i);
-  //     // return 0;
-  //   }
-  // }
-  // return SHIFT_NOT_FOUND;
-}
-
-double Employee::hours()
-{
-  double hours = 0.0;
-  for (Shift s : shifts_) {
-    time_t seconds = s.end_time - s.start_time;
-    hours += (seconds / 360);
+  for (int i = 0; i < schedule.size(); ++i) {
+    if (schedule[i].day == day && schedule[i].start_time == start) {
+      delete schedule[i];
+      schedule.erase(i);
+      break;
+    }
   }
+}
+
+void Employee::set_first_name(QString name)
+{
+  first_name = name;
+}
+
+void Employee::set_last_name(QString name)
+{
+  last_name = name;
+}
+
+void Employee::set_display_color(QColor color)
+{
+  display_color = color;
+}
+
+void Employee::set_display_color(QString color)
+{
+  display_color = QColor(color);
+}
+
+QString Employee::get_first_name()
+{
+  return first_name;
+}
+
+QString Employee::get_last_name()
+{
+  return last_name;
+}
+
+QColor Employee::get_display_color()
+{
+  return display_color;
+}
+
+int Employee::get_shift_count()
+{
+  return schedule.size();
+}
+
+double Employee::get_hours()
+{
+  int secs = 0;
+  for (Shift shift : schedule)
+    secs += shift.length();
+
+  double hours = secs / 3600;
   return hours;
 }

@@ -14,18 +14,20 @@ SOURCES += \
   src/ui/addemployeedialog.cpp \
   src/ui/mainwindow.cpp \
   src/utility/utility.cpp \
-  src/main.cpp
+  src/main.cpp \
+  src/shift/shift.cpp
 
 HEADERS += \
   src/database/database.h \
   src/employee/employee.h \
   src/ui/addemployeedialog.h \
   src/ui/mainwindow.h \
-  src/utility/utility.h
+  src/utility/utility.h \
+  src/shift/shift.h
 
 FORMS += \
   src/ui/addemployeedialog.ui \
   src/ui/mainwindow.ui
 
 OTHER_FILES += \
-    scripts/db_init.sql
+  scripts/db_init.sql
