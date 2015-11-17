@@ -14,53 +14,50 @@ int Shift::length()
   return start_time.secsTo(end_time);
 }
 
-ostream& Shift::operator << (ostream& os, const Shift& rhs) const
+ostream& operator << (ostream& os, const Shift& rhs)
 {
-    QString day;
-
     switch (rhs.day) {
     case SUNDAY:
-        day = "Sunday";
+        os << "Sunday";
         break;
     case MONDAY:
-        day = "Monday";
+        os << "Monday";
         break;
     case TUESDAY:
-        day = "Tuesday";
+        os << "Tuesday";
         break;
     case WEDNESDAY:
-        day = "Wednesday";
+        os << "Wednesday";
         break;
     case THURSDAY:
-        day = "Thursday";
+        os << "Thursday";
         break;
     case FRIDAY:
-        day = "Friday";
+        os << "Friday";
         break;
     case SATURDAY:
-        day = "Saturday";
+        os << "Saturday";
         break;
     default:
-        day = "Unknown";
+        os << "Unknown";
         break;
     }
 
-    os << day
-       << rhs.start_time.toString("hh:mm");
-       << rhs.end_time.toString("hh:mm");
+    os << rhs.start_time.toString("hh:mm").constData()
+       << rhs.end_time.toString("hh:mm").constData();
     return os;
 }
 
-bool Shift::operator == (const Shift& rhs) const
+bool operator == (const Shift& lhs, const Shift& rhs)
 {
-    return (day == rhs.day)
-        && (start_time == rhs.start_time)
-        && (end_time == rhs.end_time);
+    return (lhs.day == rhs.day)
+        && (lhs.start_time == rhs.start_time)
+        && (lhs.end_time == rhs.end_time);
 }
 
-bool Shift::operator != (const Shift& rhs) const
+bool operator != (const Shift& lhs, const Shift& rhs)
 {
-    return (day != rhs.day)
-        && (start_time != rhs.start_time)
-        && (end_time != rhs.end_time);
+    return (lhs.day != rhs.day)
+        && (lhs.start_time != rhs.start_time)
+        && (lhs.end_time != rhs.end_time);
 }

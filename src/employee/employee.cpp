@@ -9,7 +9,7 @@ Employee::Employee(int new_id, QString first, QString last, QString color) : id(
 
 Employee::~Employee()
 {
-  for (int i = 0; i < schedule.size(); ++i)
+  for (unsigned int i = 0; i < schedule.size(); ++i)
     delete schedule[i];
   schedule.clear();
 }
@@ -20,16 +20,21 @@ void Employee::add_shift(Days day, QTime start, QTime end)
   new_shift->day = day;
   new_shift->start_time = start;
   new_shift->end_time = end;
-  shifts.push_back(new_shift);
+  schedule.push_back(new_shift);
 }
 
 void Employee::remove_shift(Days day, QTime start)
 {
-  for (int i = 0; i < schedule.size(); ++i) {
-    if (schedule[i].day == day && schedule[i].start_time == start) {
-      delete schedule[i];
-      schedule.erase(i);
+  auto it = schedule.begin();
+
+  while (it != schedule.end()) {
+    if ((*it)->day == day && (*it)->start_time == start) {
+      delete *it;
+      it = schedule.erase(it);
       break;
+    }
+    else {
+      ++it;
     }
   }
 }
@@ -77,8 +82,8 @@ int Employee::get_shift_count()
 double Employee::get_hours()
 {
   int secs = 0;
-  for (Shift shift : schedule)
-    secs += shift.length();
+  for (Shift* shift : schedule)
+    secs += shift->length();
 
   double hours = secs / 3600;
   return hours;

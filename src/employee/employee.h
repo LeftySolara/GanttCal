@@ -1,6 +1,8 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
+#define DEFAULT_COLOR "#6FCAE5"
+
 #include <QColor>
 #include <vector>
 #include "shift/shift.h"
@@ -12,9 +14,9 @@ private:
   QString first_name;
   QString last_name;
   QColor display_color;
-  std::vector<Shift> schedule;
+  std::vector<Shift*> schedule;
 public:
-  Employee(int new_id, QString first, QString last, QString color="#6FCAE5");
+  Employee(int new_id, QString first, QString last, QString color=DEFAULT_COLOR);
   ~Employee();
 
   void add_shift(Days day, QTime start, QTime end);

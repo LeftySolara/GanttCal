@@ -13,10 +13,11 @@ struct Shift
   QTime end_time;
   bool is_valid();
   int length();
-  std::ostream& operator << (std::ostream& os, const Shift& rhs);
-  bool operator == (const Shift& rhs) const;
-  bool operator != (const Shift& rhs) const;
 };
+
+ std::ostream& operator << (std::ostream& os, const Shift& rhs);
+ bool operator == (const Shift& lhs, const Shift& rhs);
+ bool operator != (const Shift& lhs, const Shift& rhs);
 
 #endif // SHIFT_H
 
