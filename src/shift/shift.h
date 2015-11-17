@@ -11,7 +11,7 @@ struct Shift
   Days day;
   QTime start_time;
   QTime end_time;
-  bool is_valid() { return start_time < end_time; }
+  bool is_valid();
   std::ostream& operator << (std::ostream& os, const Shift& rhs);
   bool operator == (const Shift& rhs) const;
   bool operator != (const Shift& rhs) const;

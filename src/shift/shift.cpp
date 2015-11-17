@@ -2,6 +2,14 @@
 using std::ostream;
 
 
+// Checks that start and end times are valid time formats and
+// that the start time is earlier than the end time
+bool Shift::is_valid()
+{
+    return start_time.isValid() && end_time.isValid() && (start_time < end_time);
+}
+
+
 ostream& Shift::operator << (ostream& os, const Shift& rhs) const
 {
     QString day;
