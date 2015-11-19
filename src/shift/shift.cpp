@@ -25,13 +25,16 @@ using std::ostream;
 // that the start time is earlier than the end time
 bool Shift::is_valid()
 {
-    return start_time.isValid() && end_time.isValid() && (start_time < end_time);
+    return start_time.isValid()
+        && end_time.isValid()
+        && (start_time < end_time)
+        && (SUNDAY <= day && day <= SATURDAY);
 }
 
 // returns the number of seconds from the start time to the end time
-int Shift::length()
+float Shift::length()
 {
-  return start_time.secsTo(end_time);
+  return float(start_time.secsTo(end_time)) / 3600.00;  // convert to hours
 }
 
 ostream& operator << (ostream& os, const Shift& rhs)
