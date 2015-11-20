@@ -34,6 +34,8 @@ struct Shift
   Days day;
   QTime start_time;
   QTime end_time;
+
+  Shift(Days weekday=SUNDAY, QTime start=QTime(9,0), QTime end=QTime(17,0));
   bool is_valid();
   float length();
 };

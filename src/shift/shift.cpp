@@ -21,6 +21,13 @@
 #include "shift.h"
 using std::ostream;
 
+Shift::Shift(Days weekday, QTime start, QTime end)
+{
+  day = weekday;
+  start_time = start;
+  end_time = end;
+}
+
 // Checks that start and end times are valid time formats and
 // that the start time is earlier than the end time
 bool Shift::is_valid()
