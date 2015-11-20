@@ -73,14 +73,14 @@ ostream& operator << (ostream& os, const Shift& rhs)
 
 bool operator == (const Shift& lhs, const Shift& rhs)
 {
-    return (lhs.day == rhs.day)
-        && (lhs.start_time == rhs.start_time)
-        && (lhs.end_time == rhs.end_time);
+  return (lhs.day == rhs.day)
+      && (lhs.start_time == rhs.start_time)
+      && (lhs.end_time == rhs.end_time);
 }
 
 bool operator != (const Shift& lhs, const Shift& rhs)
 {
-    return (lhs.day != rhs.day)
-        && (lhs.start_time != rhs.start_time)
-        && (lhs.end_time != rhs.end_time);
+  return (lhs.day != rhs.day)
+      || (lhs.start_time != rhs.start_time)
+      || (lhs.end_time != rhs.end_time);
 }

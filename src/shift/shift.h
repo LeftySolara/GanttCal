@@ -1,4 +1,7 @@
-/* Copyright (C) 2015 Jalen Adams
+/******************************************************************************
+ * shift.h : struct for holding employee shift days and times
+ * ****************************************************************************
+ * Copyright (C) 2015 Jalen Adams
  *
  * Authors: Jalen Adams <leftysolara@gmail.com>
  *

@@ -42,6 +42,13 @@ TEST_CASE( "shifts can be checked for validity", "[shift,validate]" )
     s.end_time = QTime(9,0);
     REQUIRE( s.is_valid() == false );
   }
+  SECTION( "an end time equal to the start time is invalid" )
+  {
+    s.day = WEDNESDAY;
+    s.start_time = QTime(9,0);
+    s.end_time = QTime(9,0);
+    REQUIRE( s.is_valid() == false );
+  }
 }
 
 TEST_CASE( "a shift's length can be measured in hours", "[shift,length]" )
@@ -62,4 +69,63 @@ TEST_CASE( "a shift's length can be measured in hours", "[shift,length]" )
 
     REQUIRE( afternoon.is_valid() == true);
     REQUIRE( afternoon.length() == 4.5);
+}
+
+TEST_CASE( "shift objects can be compared to each other", "[shift,comparison]" )
+{
+  Shift first;
+  Shift second;
+
+  SECTION( "shifts with the same day, start, and end are equal" )
+  {
+    first.day = FRIDAY;
+    first.start_time = QTime(8,0);
+    first.end_time = QTime(14,0);
+
+    second.day = FRIDAY;
+    second.start_time = QTime(8,0);
+    second.end_time = QTime(14,0);
+
+    REQUIRE( (first == second) == true );
+    REQUIRE( (first != second) == false);
+  }
+  SECTION( "shifts on different days are not equal" )
+  {
+    first.day = FRIDAY;
+    first.start_time = QTime(8,0);
+    first.end_time = QTime(14,0);
+
+    second.day = SATURDAY;
+    second.start_time = QTime(8,0);
+    second.end_time = QTime(14,0);
+
+    REQUIRE( (first == second) == false);
+    REQUIRE( (first != second) == true );
+  }
+  SECTION( "shifts with different start times are not equal" )
+  {
+    first.day = SATURDAY;
+    first.start_time = QTime(8,0);
+    first.end_time = QTime(14,0);
+
+    second.day = SATURDAY;
+    second.start_time = QTime(10,0);
+    second.end_time = QTime(14,0);
+
+    REQUIRE( (first == second) == false);
+    REQUIRE( (first != second) == true );
+  }
+  SECTION( "shifts with different end times are not equal" )
+  {
+    first.day = FRIDAY;
+    first.start_time = QTime(8,0);
+    first.end_time = QTime(12,0);
+
+    second.day = FRIDAY;
+    second.start_time = QTime(8,0);
+    second.end_time = QTime(14,0);
+
+    REQUIRE( (first == second) == false);
+    REQUIRE( (first != second) == true );
+  }
 }
