@@ -9,7 +9,9 @@ CONFIG   -= app_bundle
 SOURCES += \
     main.cpp \
     shifts.cpp \
-    ../src/shift/shift.cpp
+    ../src/shift/shift.cpp \
+    employees.cpp \
+    ../src/employee/employee.cpp
 
 HEADERS += catch.hpp \
     ../src/shift/shift.h

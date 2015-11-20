@@ -1,5 +1,5 @@
 /******************************************************************************
- * employee.h : class for managing Employee information
+ * employees.cpp : unit tests for Employee class
  * ****************************************************************************
  * Copyright (C) 2015 Jalen Adams
  *
@@ -21,42 +21,21 @@
  * along with GanttCal.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#ifndef EMPLOYEE_H
-#define EMPLOYEE_H
+#include "catch.hpp"
+#include "employee/employee.h"
 
-#define DEFAULT_COLOR "#6FCAE5"
-
-#include <QColor>
-#include <vector>
-#include "shift/shift.h"
-
-class Employee
+TEST_CASE( "an employee can be initialized" )
 {
-private:
-  const int id;
-  QString first_name;
-  QString last_name;
-  QColor display_color;
-  std::vector<Shift*> schedule;
-public:
-  Employee(int new_id, QString first, QString last, QString color=DEFAULT_COLOR);
-  ~Employee();
+  Employee mark = Employee(0, "Mark", "Johnson");
+  Employee jan = Employee(1, "Jan", "Smith", "#282828");
 
-  void add_shift(Days day, QTime start, QTime end);
-  void remove_shift(Days day, QTime start);
+  REQUIRE( mark.get_id() == 0);
+  REQUIRE( mark.get_first_name() == "Mark" );
+  REQUIRE( mark.get_last_name() == "Johnson" );
+  REQUIRE( mark.get_display_color().name().toUpper() == "#6FCAE5");
 
-  void set_first_name(QString name);
-  void set_last_name(QString name);
-  void set_display_color(QColor color);
-  void set_display_color(QString color);
-
-  int get_id();
-  QString get_first_name();
-  QString get_last_name();
-  QColor get_display_color();
-  int get_shift_count();
-  double get_hours();
-};
-
-#endif // EMPLOYEE_H
-
+  REQUIRE( jan.get_id() == 1);
+  REQUIRE( jan.get_first_name() == "Jan" );
+  REQUIRE( jan.get_last_name() == "Smith" );
+  REQUIRE( jan.get_display_color().name().toUpper() == "#282828");
+}

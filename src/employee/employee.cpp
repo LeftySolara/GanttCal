@@ -1,4 +1,7 @@
-/* Copyright (C) 2015 Jalen Adams
+/******************************************************************************
+ * employee.cpp : implementation file for Employee class
+ * ****************************************************************************
+ * Copyright (C) 2015 Jalen Adams
  *
  * Authors: Jalen Adams <leftysolara@gmail.com>
  *
@@ -77,6 +80,11 @@ void Employee::set_display_color(QColor color)
 void Employee::set_display_color(QString color)
 {
   display_color = QColor(color);
+}
+
+int Employee::get_id()
+{
+  return id;
 }
 
 QString Employee::get_first_name()
