@@ -20,37 +20,62 @@
 
 #include "utility.h"
 #include <QtDebug>
+#include <QFileInfo>
+#include <QSettings>
+
+#define DEFAULT_DATABASE "ganttcal.sqlite"
 
 namespace utility
 {
-    bool read_sql(QFile *inputfile, QSqlQuery *qry)
-    {
-        if (!inputfile->open(QIODevice::ReadOnly))
+
+void apply_defaults()
+{
+  QSettings settings;
+
+  // default database location
+  QFileInfo settings_info(settings.fileName());
+  QString to_replace = settings_info.fileName();
+  QString db_filename = settings.fileName().replace(to_replace, DEFAULT_DATABASE);
+  settings.setValue("database_path", db_filename);
+}
+
+// returns true if a settings file exists
+bool settings_exist()
+{
+  QSettings settings;
+  QFileInfo settings_info(settings.fileName());
+  return settings_info.exists();
+}
+
+bool read_sql(QFile *inputfile, QSqlQuery *qry)
+{
+  if (!inputfile->open(QIODevice::ReadOnly))
+    return false;
+  else
+  {
+    QTextStream in(inputfile);
+    QString statement = "";
+      while (!in.atEnd())
+      {
+        QString line = in.readLine();
+        // ignore comments
+        if (line.startsWith("--") || line.length() == 0)
+          continue;
+        statement += line;
+        if (statement.endsWith(";")) {
+          // remove semicolon at end
+          statement.chop(1);
+          if (qry->prepare(statement)) {
+              qry->exec();
+              statement = "";
+          }
+          else
             return false;
-        else
-        {
-           QTextStream in(inputfile);
-           QString statement = "";
-           while (!in.atEnd())
-           {
-              QString line = in.readLine();
-              // ignore comments
-              if (line.startsWith("--") || line.length() == 0)
-                  continue;
-              statement += line;
-              if (statement.endsWith(";")) {
-                  // remove semicolon at end
-                  statement.chop(1);
-                  if (qry->prepare(statement)) {
-                      qry->exec();
-                      statement = "";
-                  }
-                  else
-                      return false;
-              }
-           }
-           inputfile->close();
         }
-        return true;
+      }
+      inputfile->close();
     }
+    return true;
+}
+
 }
