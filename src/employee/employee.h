@@ -44,6 +44,7 @@ public:
 
   void add_shift(Days day, QTime start, QTime end);
   void remove_shift(Days day, QTime start);
+  bool schedule_is_valid();
 
   void set_first_name(QString name);
   void set_last_name(QString name);
@@ -55,7 +56,7 @@ public:
   QString get_last_name();
   QColor get_display_color();
   int get_shift_count();
-  double get_hours();
+  float get_hours();
 };
 
 #endif // EMPLOYEE_H

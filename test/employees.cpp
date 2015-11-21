@@ -24,7 +24,7 @@
 #include "catch.hpp"
 #include "employee/employee.h"
 
-TEST_CASE( "an employee can be initialized" )
+TEST_CASE( "employees can be initialized" )
 {
   Employee mark = Employee(0, "Mark", "Johnson");
   Employee jan = Employee(1, "Jan", "Smith", "#282828");
@@ -32,10 +32,42 @@ TEST_CASE( "an employee can be initialized" )
   REQUIRE( mark.get_id() == 0);
   REQUIRE( mark.get_first_name() == "Mark" );
   REQUIRE( mark.get_last_name() == "Johnson" );
-  REQUIRE( mark.get_display_color().name().toUpper() == "#6FCAE5");
+  REQUIRE( mark.get_display_color().name().toUpper() == DEFAULT_COLOR);
 
   REQUIRE( jan.get_id() == 1);
   REQUIRE( jan.get_first_name() == "Jan" );
   REQUIRE( jan.get_last_name() == "Smith" );
   REQUIRE( jan.get_display_color().name().toUpper() == "#282828");
+}
+
+TEST_CASE( "employees' shifts can be managed" )
+{
+  Employee dan = Employee(0, "Dan", "Jones");
+
+  SECTION( "shifts can be assigned to an employee" )
+  {
+    dan.add_shift(MONDAY, QTime(9,0), QTime(17,0));
+    dan.add_shift(WEDNESDAY, QTime(10,0), QTime(17,0));
+    dan.add_shift(FRIDAY, QTime(9,0), QTime(15,0));
+    REQUIRE( dan.get_shift_count() == 3 );
+    REQUIRE( dan.schedule_is_valid() == true );
+  }
+  SECTION( "shifts can be removed from an employee" )
+  {
+    dan.add_shift(MONDAY, QTime(9,0), QTime(17,0));
+    dan.add_shift(WEDNESDAY, QTime(10,0), QTime(17,0));
+    dan.add_shift(FRIDAY, QTime(9,0), QTime(15,0));
+    REQUIRE( dan.get_shift_count() == 3 );
+
+    dan.remove_shift(WEDNESDAY, QTime(10,0));
+    dan.remove_shift(THURSDAY, QTime(11,0));  // shift doesn't exist
+    REQUIRE( dan.get_shift_count() == 2 );
+  }
+  SECTION( "total hours for a week can be calculated" )
+  {
+    dan.add_shift(MONDAY, QTime(9,0), QTime(17,30));
+    dan.add_shift(WEDNESDAY, QTime(10,0), QTime(17,0));
+    dan.add_shift(FRIDAY, QTime(9,0), QTime(15,0));
+    REQUIRE( dan.get_hours() == 21.5 );
+  }
 }

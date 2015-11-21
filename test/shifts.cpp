@@ -45,13 +45,13 @@ TEST_CASE( "shifts can be checked for validity", "[shift,validate]" )
 
 TEST_CASE( "a shift's length can be measured in hours", "[shift,length]" )
 {
-    Shift morning = Shift(WEDNESDAY, QTime(7,0), QTime(12,0));
-    REQUIRE( morning.is_valid() == true );
-    REQUIRE( morning.length() == 5);
+  Shift morning = Shift(WEDNESDAY, QTime(7,0), QTime(12,0));
+  REQUIRE( morning.is_valid() == true );
+  REQUIRE( morning.length() == 5);
 
-    Shift afternoon = Shift(THURSDAY, QTime(13,0), QTime(17,30));
-    REQUIRE( afternoon.is_valid() == true);
-    REQUIRE( afternoon.length() == 4.5);
+  Shift afternoon = Shift(THURSDAY, QTime(13,0), QTime(17,30));
+  REQUIRE( afternoon.is_valid() == true);
+  REQUIRE( afternoon.length() == 4.5);
 }
 
 TEST_CASE( "shift objects can be compared to each other", "[shift,comparison]" )

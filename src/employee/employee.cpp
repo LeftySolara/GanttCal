@@ -62,6 +62,17 @@ void Employee::remove_shift(Days day, QTime start)
   }
 }
 
+// Checks for any invalids shifts in schedule
+bool Employee::schedule_is_valid()
+{
+  for (Shift *s : schedule) {
+    if (!s->is_valid()) {
+      return false;
+    }
+  }
+  return true;
+}
+
 void Employee::set_first_name(QString name)
 {
   first_name = name;
@@ -107,12 +118,11 @@ int Employee::get_shift_count()
   return schedule.size();
 }
 
-double Employee::get_hours()
+float Employee::get_hours()
 {
-  int secs = 0;
+  float hours = 0;
   for (Shift* shift : schedule)
-    secs += shift->length();
+    hours += shift->length();
 
-  double hours = secs / 3600;
   return hours;
 }
