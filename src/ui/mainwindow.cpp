@@ -25,20 +25,31 @@
 #include <QApplication>
 #include <QSettings>
 #include <QFileInfo>
+#include <QtGui>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-  if(!utility::settings_exist()) {
-    utility::apply_defaults();
-  }
+  setup();
   ui->setupUi(this);
 }
 
 MainWindow::~MainWindow()
 {
   delete ui;
+  delete db;
+}
+
+void MainWindow::setup()
+{
+  // create a settings file if none exists
+  if(!utility::settings_exist()) {
+    utility::apply_defaults();
+  }
+
+  QSettings settings;
+  db = new Database(settings.value("database_path").toString());
 }
 
 void MainWindow::on_actionAbout_QT_triggered()
@@ -59,5 +70,6 @@ void MainWindow::on_actionAdd_Employee_triggered()
     QString last = add_dialog.get_last_name();
     QString color = add_dialog.get_color();
     unsigned int max_hours = add_dialog.get_max_hours();
+    db->add_employee(first, last, color, max_hours);
     }
 }

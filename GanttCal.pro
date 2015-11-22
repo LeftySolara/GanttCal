@@ -16,7 +16,6 @@ SOURCES += \
   src/utility/utility.cpp \
   src/main.cpp \
   src/shift/shift.cpp \
-    src/utility/apply_defaults.cpp
 
 HEADERS += \
   src/database/database.h \

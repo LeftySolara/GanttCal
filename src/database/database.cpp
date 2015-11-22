@@ -20,6 +20,7 @@
 
 #include "database.h"
 #include "utility/utility.h"
+#include <QApplication>
 #include <QtDebug>
 #include <QFile>
 
@@ -27,12 +28,6 @@
 
 Database::Database(QString filename)
 {
-    // TODO:
-    // At startup, the program should attempt to create a directory to hold the
-    // database if it doesn't exist. This should be implemented somewhere in
-    // the main event loop, but it'll be done here until I make time to deal
-    // with it.
-
     QFile dbfile;
     dbfile.setFileName(filename);
 
@@ -61,24 +56,24 @@ Database::Database(QString filename)
     else
         create_connection(filename);
 
-    employee_model = new QSqlRelationalTableModel(0, db);
-    employee_model->setTable("employee");
-    employee_model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
-    employee_model->select();
+//    employee_model = new QSqlRelationalTableModel(0, db);
+//    employee_model->setTable("employee");
+//    employee_model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
+//    employee_model->select();
 
-    shift_model = new QSqlRelationalTableModel(0, db);
-    shift_model->setTable("shift");
-    shift_model->setRelation(2, QSqlRelation("weekday", "id_weekday", "name"));
-    shift_model->setRelation(5, QSqlRelation("employee", "id_employee", "last_name"));
-    shift_model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
-    shift_model->select();
+//    shift_model = new QSqlRelationalTableModel(0, db);
+//    shift_model->setTable("shift");
+//    shift_model->setRelation(2, QSqlRelation("weekday", "id_weekday", "name"));
+//    shift_model->setRelation(5, QSqlRelation("employee", "id_employee", "last_name"));
+//    shift_model->setEditStrategy(QSqlRelationalTableModel::OnManualSubmit);
+//    shift_model->select();
 }
 
 Database::~Database()
 {
     db.close();
-    delete employee_model;
-    delete shift_model;
+//    delete employee_model;
+//    delete shift_model;
 }
 
 void Database::create_connection(QString filename)
@@ -86,8 +81,8 @@ void Database::create_connection(QString filename)
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(filename);
     if (!db.open()) {
-        qDebug() << "Error opening database file";
-        QCoreApplication::exit();
+      qDebug() << "create_connection(): " << db.lastError();
+      QCoreApplication::exit();
     }
     qry = QSqlQuery(db);
 }

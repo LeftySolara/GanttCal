@@ -39,7 +39,6 @@ void apply_defaults()
   settings.setValue("database_path", db_filename);
 }
 
-// returns true if a settings file exists
 bool settings_exist()
 {
   QSettings settings;
@@ -47,13 +46,15 @@ bool settings_exist()
   return settings_info.exists();
 }
 
-bool read_sql(QFile *inputfile, QSqlQuery *qry)
+// reads and executes the given sql script
+bool read_sql(QFile *script_file, QSqlQuery *qry)
 {
-  if (!inputfile->open(QIODevice::ReadOnly))
+  if (!script_file->open(QIODevice::ReadOnly)) {
     return false;
+  }
   else
   {
-    QTextStream in(inputfile);
+    QTextStream in(script_file);
     QString statement = "";
       while (!in.atEnd())
       {
@@ -73,7 +74,7 @@ bool read_sql(QFile *inputfile, QSqlQuery *qry)
             return false;
         }
       }
-      inputfile->close();
+      script_file->close();
     }
     return true;
 }

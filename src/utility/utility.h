@@ -28,7 +28,7 @@ namespace utility
 {
   void apply_defaults();
   bool settings_exist();
-  bool read_sql(QFile *inputfile, QSqlQuery *qry);
+  bool read_sql(QFile *script_file, QSqlQuery *qry);
 }
 
 #endif // UTILITY

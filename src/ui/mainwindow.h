@@ -21,6 +21,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "database/database.h"
 #include <QMainWindow>
 
 namespace Ui {
@@ -34,6 +35,7 @@ class MainWindow : public QMainWindow
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
+  void setup();
 
 private slots:
   void on_actionAbout_QT_triggered();
@@ -42,6 +44,7 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
+  Database *db;
 };
 
 #endif // MAINWINDOW_H
