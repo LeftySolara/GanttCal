@@ -71,5 +71,5 @@ void MainWindow::on_actionAdd_Employee_triggered()
     QString color = add_dialog.get_color();
     unsigned int max_hours = add_dialog.get_max_hours();
     db->add_employee(first, last, color, max_hours);
-    }
+  }
 }
