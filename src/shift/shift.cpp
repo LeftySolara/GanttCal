@@ -23,9 +23,9 @@ using std::ostream;
 
 Shift::Shift(Days weekday, QTime start, QTime end)
 {
-  day = weekday;
-  start_time = start;
-  end_time = end;
+    day = weekday;
+    start_time = start;
+    end_time = end;
 }
 
 // Checks that start and end times are valid time formats and
@@ -41,7 +41,7 @@ bool Shift::is_valid()
 // returns the number of seconds from the start time to the end time
 float Shift::length()
 {
-  return float(start_time.secsTo(end_time)) / 3600.00;  // convert to hours
+    return float(start_time.secsTo(end_time)) / 3600.00;  // convert to hours
 }
 
 ostream& operator << (ostream& os, const Shift& rhs)
@@ -80,14 +80,14 @@ ostream& operator << (ostream& os, const Shift& rhs)
 
 bool operator == (const Shift& lhs, const Shift& rhs)
 {
-  return (lhs.day == rhs.day)
-      && (lhs.start_time == rhs.start_time)
-      && (lhs.end_time == rhs.end_time);
+    return (lhs.day == rhs.day)
+        && (lhs.start_time == rhs.start_time)
+        && (lhs.end_time == rhs.end_time);
 }
 
 bool operator != (const Shift& lhs, const Shift& rhs)
 {
-  return (lhs.day != rhs.day)
-      || (lhs.start_time != rhs.start_time)
-      || (lhs.end_time != rhs.end_time);
+    return (lhs.day != rhs.day)
+        || (lhs.start_time != rhs.start_time)
+        || (lhs.end_time != rhs.end_time);
 }

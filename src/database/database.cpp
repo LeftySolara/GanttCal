@@ -140,18 +140,18 @@ bool Database::add_employee(QString first, QString last, QString color, unsigned
 
 bool Database::remove_employee(int id)
 {
-  QString statement = "DELETE FROM employee WHERE id_employee = :id";
-  if (!qry.prepare(statement)) {
-    qDebug() << qry.lastError().text();
-    return false;
-  }
+    QString statement = "DELETE FROM employee WHERE id_employee = :id";
+    if (!qry.prepare(statement)) {
+      qDebug() << qry.lastError().text();
+      return false;
+    }
 
-  qry.bindValue(":id", id);
-  if (!qry.exec()) {
-    qDebug() << qry.lastError().text();
-    return false;
-  }
-  return true;
+    qry.bindValue(":id", id);
+    if (!qry.exec()) {
+      qDebug() << qry.lastError().text();
+      return false;
+    }
+    return true;
 }
 
 QSqlDatabase Database::get_db()

@@ -31,18 +31,18 @@ enum Days {SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY};
 
 struct Shift
 {
-  Days day;
-  QTime start_time;
-  QTime end_time;
+    Days day;
+    QTime start_time;
+    QTime end_time;
 
-  Shift(Days weekday=SUNDAY, QTime start=QTime(9,0), QTime end=QTime(17,0));
-  bool is_valid();
-  float length();
+    Shift(Days weekday=SUNDAY, QTime start=QTime(9,0), QTime end=QTime(17,0));
+    bool is_valid();
+    float length();
 };
 
- std::ostream& operator << (std::ostream& os, const Shift& rhs);
- bool operator == (const Shift& lhs, const Shift& rhs);
- bool operator != (const Shift& lhs, const Shift& rhs);
+    std::ostream& operator << (std::ostream& os, const Shift& rhs);
+    bool operator == (const Shift& lhs, const Shift& rhs);
+    bool operator != (const Shift& lhs, const Shift& rhs);
 
 #endif // SHIFT_H
 

@@ -33,27 +33,26 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-  Q_OBJECT
+    Q_OBJECT
 
 public:
-  explicit MainWindow(QWidget *parent = 0);
-  ~MainWindow();
-  void initialize_settings();
-  void initialize_models();
-  void initialize_views();
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+    void initialize_settings();
+    void initialize_models();
+    void initialize_views();
 
 private slots:
-  void on_actionAbout_QT_triggered();
-  void on_actionQuit_triggered();
-  void on_actionAdd_Employee_triggered();
-
-  void on_actionView_Employees_triggered();
+    void on_actionAbout_QT_triggered();
+    void on_actionQuit_triggered();
+    void on_actionAdd_Employee_triggered();
+    void on_actionView_Employees_triggered();
 
 private:
-  Ui::MainWindow *ui;
-  Database *db;
-  QSqlRelationalTableModel *employee_model;
-  QTableView *view;
+    Ui::MainWindow *ui;
+    Database *db;
+    QSqlRelationalTableModel *employee_model;
+    QTableView *view;
 };
 
 #endif // MAINWINDOW_H

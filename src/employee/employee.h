@@ -33,30 +33,30 @@
 class Employee
 {
 private:
-  const int id;
-  QString first_name;
-  QString last_name;
-  QColor display_color;
-  std::vector<Shift*> schedule;
+    const int id;
+    QString first_name;
+    QString last_name;
+    QColor display_color;
+    std::vector<Shift*> schedule;
 public:
-  Employee(int new_id, QString first, QString last, QString color=DEFAULT_COLOR);
-  ~Employee();
+    Employee(int new_id, QString first, QString last, QString color=DEFAULT_COLOR);
+    ~Employee();
 
-  void add_shift(Days day, QTime start, QTime end);
-  void remove_shift(Days day, QTime start);
-  bool schedule_is_valid();
+    void add_shift(Days day, QTime start, QTime end);
+    void remove_shift(Days day, QTime start);
+    bool schedule_is_valid();
 
-  void set_first_name(QString name);
-  void set_last_name(QString name);
-  void set_display_color(QColor color);
-  void set_display_color(QString color);
+    void set_first_name(QString name);
+    void set_last_name(QString name);
+    void set_display_color(QColor color);
+    void set_display_color(QString color);
 
-  int get_id();
-  QString get_first_name();
-  QString get_last_name();
-  QColor get_display_color();
-  int get_shift_count();
-  float get_hours();
+    int get_id();
+    QString get_first_name();
+    QString get_last_name();
+    QColor get_display_color();
+    int get_shift_count();
+    float get_hours();
 };
 
 #endif // EMPLOYEE_H

@@ -30,53 +30,54 @@ namespace utility
 
 void apply_defaults()
 {
-  QSettings settings;
+    QSettings settings;
 
-  // default database location
-  QFileInfo settings_info(settings.fileName());
-  QString to_replace = settings_info.fileName();
-  QString db_filename = settings.fileName().replace(to_replace, DEFAULT_DATABASE);
-  settings.setValue("database_path", db_filename);
+    // default database location
+    QFileInfo settings_info(settings.fileName());
+    QString to_replace = settings_info.fileName();
+    QString db_filename = settings.fileName().replace(to_replace, DEFAULT_DATABASE);
+    settings.setValue("database_path", db_filename);
 }
 
 bool settings_exist()
 {
-  QSettings settings;
-  QFileInfo settings_info(settings.fileName());
-  return settings_info.exists();
+    QSettings settings;
+    QFileInfo settings_info(settings.fileName());
+    return settings_info.exists();
 }
 
 // reads and executes the given sql script
 bool read_sql(QFile *script_file, QSqlQuery *qry)
 {
-  if (!script_file->open(QIODevice::ReadOnly)) {
-    return false;
-  }
-  else
-  {
-    QTextStream in(script_file);
-    QString statement = "";
-      while (!in.atEnd())
-      {
-        QString line = in.readLine();
-        // ignore comments
-        if (line.startsWith("--") || line.length() == 0)
-          continue;
-        statement += line;
-        if (statement.endsWith(";")) {
-          // remove semicolon at end
-          statement.chop(1);
-          if (qry->prepare(statement)) {
-              qry->exec();
-              statement = "";
-          }
-          else
-            return false;
-        }
-      }
-      script_file->close();
+    if (!script_file->open(QIODevice::ReadOnly)) {
+        return false;
     }
-    return true;
+    else
+    {
+        QTextStream in(script_file);
+        QString statement = "";
+            while (!in.atEnd())
+            {
+                QString line = in.readLine();
+                // ignore comments
+                if (line.startsWith("--") || line.length() == 0) {
+                    continue;
+                }
+                statement += line;
+                if (statement.endsWith(";")) {
+                    // remove semicolon at end
+                    statement.chop(1);
+                    if (qry->prepare(statement)) {
+                          qry->exec();
+                          statement = "";
+                    }
+                    else
+                      return false;
+                }
+            }
+            script_file->close();
+        }
+        return true;
 }
 
 }
