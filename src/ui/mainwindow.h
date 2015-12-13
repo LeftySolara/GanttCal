@@ -38,12 +38,16 @@ class MainWindow : public QMainWindow
 public:
   explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
-  void setup();
+  void initialize_settings();
+  void initialize_models();
+  void initialize_views();
 
 private slots:
   void on_actionAbout_QT_triggered();
   void on_actionQuit_triggered();
   void on_actionAdd_Employee_triggered();
+
+  void on_actionView_Employees_triggered();
 
 private:
   Ui::MainWindow *ui;

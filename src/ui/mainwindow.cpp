@@ -32,15 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setup();
-
-    employee_model = new QSqlRelationalTableModel(0, db->get_db());
-    employee_model->setTable("employee");
-    employee_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-
-    view = new QTableView;
-    view->setModel(employee_model);
-    view->setItemDelegate(new QSqlRelationalDelegate(view));
+    initialize_settings();
+    initialize_models();
+    initialize_views();
 }
 
 MainWindow::~MainWindow()
@@ -51,7 +45,7 @@ MainWindow::~MainWindow()
     delete view;
 }
 
-void MainWindow::setup()
+void MainWindow::initialize_settings()
 {
     // create a settings file if none exists
     if(!utility::settings_exist()) {
@@ -60,6 +54,34 @@ void MainWindow::setup()
 
     QSettings settings;
     db = new Database(settings.value("database_path").toString());
+}
+
+void MainWindow::initialize_models()
+{
+    employee_model = new QSqlRelationalTableModel(0, db->get_db());
+    employee_model->setTable("employee");
+    employee_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+
+    employee_model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+    employee_model->setHeaderData(1, Qt::Horizontal, QObject::tr("Last Name"));
+    employee_model->setHeaderData(2, Qt::Horizontal, QObject::tr("First Name"));
+    employee_model->setHeaderData(3, Qt::Horizontal, QObject::tr("Max Hours"));
+    employee_model->setHeaderData(4, Qt::Horizontal, QObject::tr("Displayed"));
+    employee_model->setHeaderData(5, Qt::Horizontal, QObject::tr("Display Color"));
+
+    employee_model->select();
+
+    // add shift model here once employee model is shown to work
+}
+
+void MainWindow::initialize_views()
+{
+    view = new QTableView;
+    view->setModel(employee_model);
+    view->setItemDelegate(new QSqlRelationalDelegate(view));
+    view->setWindowTitle("List of Employees");
+
+    // add shift view once employee view is shown to work
 }
 
 void MainWindow::on_actionAbout_QT_triggered()
@@ -82,4 +104,9 @@ void MainWindow::on_actionAdd_Employee_triggered()
       unsigned int max_hours = add_dialog.get_max_hours();
       db->add_employee(first, last, color, max_hours);
     }
+}
+
+void MainWindow::on_actionView_Employees_triggered()
+{
+    view->show();
 }
