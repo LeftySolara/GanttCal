@@ -23,6 +23,8 @@
 
 #include "database/database.h"
 #include <QMainWindow>
+#include <QGraphicsView>
+#include <QGraphicsScene>
 
 namespace Ui {
 class MainWindow;
@@ -45,6 +47,7 @@ private slots:
 private:
   Ui::MainWindow *ui;
   Database *db;
+  QGraphicsScene *scene;
 };
 
 #endif // MAINWINDOW_H

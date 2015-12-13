@@ -31,45 +31,57 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-  setup();
-  ui->setupUi(this);
+    ui->setupUi(this);
+    setup();
+
+    scene = new QGraphicsScene;
+    ui->graphicsView_Main->setScene(scene);
+
+    // Add lines for background grid
+    for (int x = 0; x <= 1200; x += 50) {
+        scene->addLine(x,0,x,350, QPen(Qt::black));
+    }
+    for (int y = 0; y <= 350; y += 50) {
+        scene->addLine(0,y,1200,y, QPen(Qt::black));
+    }
+//    ui->graphicsView_Main->fitInView(scene->itemsBoundingRect());
 }
 
 MainWindow::~MainWindow()
 {
-  delete ui;
-  delete db;
+    delete ui;
+    delete db;
 }
 
 void MainWindow::setup()
 {
-  // create a settings file if none exists
-  if(!utility::settings_exist()) {
-    utility::apply_defaults();
-  }
+    // create a settings file if none exists
+    if(!utility::settings_exist()) {
+      utility::apply_defaults();
+    }
 
-  QSettings settings;
-  db = new Database(settings.value("database_path").toString());
+    QSettings settings;
+    db = new Database(settings.value("database_path").toString());
 }
 
 void MainWindow::on_actionAbout_QT_triggered()
 {
-  QApplication::aboutQt();
+    QApplication::aboutQt();
 }
 
 void MainWindow::on_actionQuit_triggered()
 {
-  QApplication::exit();
+    QApplication::exit();
 }
 
 void MainWindow::on_actionAdd_Employee_triggered()
 {
-  AddEmployeeDialog add_dialog;
-  if (add_dialog.exec() == QDialog::Accepted) {
-    QString first = add_dialog.get_first_name();
-    QString last = add_dialog.get_last_name();
-    QString color = add_dialog.get_color();
-    unsigned int max_hours = add_dialog.get_max_hours();
-    db->add_employee(first, last, color, max_hours);
-  }
+    AddEmployeeDialog add_dialog;
+    if (add_dialog.exec() == QDialog::Accepted) {
+      QString first = add_dialog.get_first_name();
+      QString last = add_dialog.get_last_name();
+      QString color = add_dialog.get_color();
+      unsigned int max_hours = add_dialog.get_max_hours();
+      db->add_employee(first, last, color, max_hours);
+    }
 }
