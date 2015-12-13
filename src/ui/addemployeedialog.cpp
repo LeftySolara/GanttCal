@@ -18,6 +18,8 @@
  * along with GanttCal.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
+#define DEFAULT_COLOR "#FFFFFF"
+
 #include "addemployeedialog.h"
 #include "ui_addemployeedialog.h"
 #include <QColorDialog>
@@ -26,6 +28,7 @@ AddEmployeeDialog::AddEmployeeDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AddEmployeeDialog)
 {
+    color = QColor(DEFAULT_COLOR);
     ui->setupUi(this);
 }
 
@@ -34,10 +37,18 @@ AddEmployeeDialog::~AddEmployeeDialog()
     delete ui;
 }
 
+// Allow user to select a display color for employee
 void AddEmployeeDialog::on_buttonColorPicker_clicked()
 {
     QPalette picker_palette;
     color = QColorDialog::getColor();
+
+    // getColor() returns and invalid color if user cancels dialog
+    // In that case, set color back to default
+    if (!color.isValid()) {
+        color = QColor(DEFAULT_COLOR);
+    }
+
     picker_palette.setColor(QPalette::Button, color);
     ui->buttonColorPicker->setPalette(picker_palette);
 }
