@@ -34,23 +34,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setup();
 
-    scene = new QGraphicsScene;
-    ui->graphicsView_Main->setScene(scene);
+    employee_model = new QSqlRelationalTableModel(0, db->get_db());
+    employee_model->setTable("employee");
+    employee_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
 
-    // Add lines for background grid
-    for (int x = 0; x <= 1200; x += 50) {
-        scene->addLine(x,0,x,350, QPen(Qt::black));
-    }
-    for (int y = 0; y <= 350; y += 50) {
-        scene->addLine(0,y,1200,y, QPen(Qt::black));
-    }
-//    ui->graphicsView_Main->fitInView(scene->itemsBoundingRect());
+    view = new QTableView;
+    view->setModel(employee_model);
+    view->setItemDelegate(new QSqlRelationalDelegate(view));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete db;
+    delete employee_model;
+    delete view;
 }
 
 void MainWindow::setup()

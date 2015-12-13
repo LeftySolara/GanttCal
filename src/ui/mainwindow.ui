@@ -37,7 +37,7 @@
      <number>0</number>
     </property>
     <item row="0" column="0">
-     <widget class="QGraphicsView" name="graphicsView_Main"/>
+     <widget class="QTableView" name="tableView_main"/>
     </item>
    </layout>
   </widget>
