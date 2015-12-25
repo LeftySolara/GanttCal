@@ -33,16 +33,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     initialize_settings();
-    initialize_models();
-    initialize_views();
+    if (!initialize_database())
+        errmsg.showMessage("Could not initialize database.");
+    // initialize_models();
+    // initialize_views();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete db;
-    delete employee_model;
-    delete view;
+//    delete db;
+//    delete employee_model;
+//    delete view;
 }
 
 void MainWindow::initialize_settings()
@@ -53,33 +55,47 @@ void MainWindow::initialize_settings()
     }
 
     QSettings settings;
-    db = new Database(settings.value("database_path").toString());
+//    db = new Database(settings.value("database_path").toString());
+}
+
+bool MainWindow::initialize_database()
+{
+    QSettings settings;
+    QString db_filename = settings.value("database_path").toString();
+
+    QFile dbfile;
+    dbfile.setFileName(db_filename);
+    if (dbfile.exists())
+        return true;
+    if (utility::create_database(db_filename))
+        return true;
+    return false;
 }
 
 void MainWindow::initialize_models()
 {
-    employee_model = new QSqlRelationalTableModel(0, db->get_db());
-    employee_model->setTable("employee");
-    employee_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+//    employee_model = new QSqlRelationalTableModel(0, db->get_db());
+//    employee_model->setTable("employee");
+//    employee_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
 
-    employee_model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
-    employee_model->setHeaderData(1, Qt::Horizontal, QObject::tr("Last Name"));
-    employee_model->setHeaderData(2, Qt::Horizontal, QObject::tr("First Name"));
-    employee_model->setHeaderData(3, Qt::Horizontal, QObject::tr("Max Hours"));
-    employee_model->setHeaderData(4, Qt::Horizontal, QObject::tr("Displayed"));
-    employee_model->setHeaderData(5, Qt::Horizontal, QObject::tr("Display Color"));
+//    employee_model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+//    employee_model->setHeaderData(1, Qt::Horizontal, QObject::tr("Last Name"));
+//    employee_model->setHeaderData(2, Qt::Horizontal, QObject::tr("First Name"));
+//    employee_model->setHeaderData(3, Qt::Horizontal, QObject::tr("Max Hours"));
+//    employee_model->setHeaderData(4, Qt::Horizontal, QObject::tr("Displayed"));
+//    employee_model->setHeaderData(5, Qt::Horizontal, QObject::tr("Display Color"));
 
-    employee_model->select();
+//    employee_model->select();
 
     // add shift model here once employee model is shown to work
 }
 
 void MainWindow::initialize_views()
 {
-    view = new QTableView;
-    view->setModel(employee_model);
-    view->setItemDelegate(new QSqlRelationalDelegate(view));
-    view->setWindowTitle("List of Employees");
+//    view = new QTableView;
+//    view->setModel(employee_model);
+//    view->setItemDelegate(new QSqlRelationalDelegate(view));
+//    view->setWindowTitle("List of Employees");
 
     // add shift view once employee view is shown to work
 }
@@ -102,11 +118,11 @@ void MainWindow::on_actionAdd_Employee_triggered()
         QString last = add_dialog.get_last_name();
         QString color = add_dialog.get_color();
         unsigned int max_hours = add_dialog.get_max_hours();
-        db->add_employee(first, last, color, max_hours);
+//        db->add_employee(first, last, color, max_hours);
     }
 }
 
 void MainWindow::on_actionView_Employees_triggered()
 {
-    view->show();
+//    view->show();
 }

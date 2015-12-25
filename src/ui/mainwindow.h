@@ -26,6 +26,7 @@
 #include <QTableView>
 #include <QSqlRelationalTableModel>
 #include <QSqlRelationalDelegate>
+#include <QErrorMessage>
 
 namespace Ui {
 class MainWindow;
@@ -39,6 +40,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void initialize_settings();
+    bool initialize_database();
     void initialize_models();
     void initialize_views();
 
@@ -50,9 +52,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Database *db;
-    QSqlRelationalTableModel *employee_model;
-    QTableView *view;
+    QErrorMessage errmsg;
+//    Database *db;
+//    QSqlRelationalTableModel *employee_model;
+//    QTableView *view;
 };
 
 #endif // MAINWINDOW_H

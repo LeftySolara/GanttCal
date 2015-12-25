@@ -22,8 +22,10 @@
 #include <QtDebug>
 #include <QFileInfo>
 #include <QSettings>
+#include <QSqlDatabase>
 
 #define DEFAULT_DATABASE "ganttcal.sqlite"
+#define SQL_INIT_SCRIPT "../scripts//db_init.sql"
 
 namespace utility
 {
@@ -78,6 +80,44 @@ bool read_sql(QFile *script_file, QSqlQuery *qry)
             script_file->close();
         }
         return true;
+}
+
+// create and initialize the database, assuming the file doesn't already exist
+bool create_database(QString filename)
+{
+    // create the file
+    QFile dbfile;
+    dbfile.setFileName(filename);
+
+    dbfile.open(QIODevice::ReadWrite);
+    if (!dbfile.exists()) {
+        qDebug() << "Unable to create the database.";
+        return false;
+    }
+    dbfile.close();
+
+    // make a database connection and set up the query
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(filename);
+    if (!db.open()) {
+        qDebug() << "Unable to open database.";
+        return false;
+    }
+    QSqlQuery qry(db);
+
+    // run script to set up the database
+    QFile scriptfile;
+    scriptfile.setFileName(SQL_INIT_SCRIPT);
+    if (!scriptfile.exists()) {
+        qDebug() << "Cannot find database initialization script.";
+        return false;
+    }
+    if (!read_sql(&scriptfile, &qry)) {
+        qDebug() << "Error executing initialization script.";
+        return false;
+    }
+    qDebug() << "Database initialized successfully.";
+    return true;
 }
 
 }
