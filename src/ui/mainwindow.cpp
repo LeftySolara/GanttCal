@@ -65,29 +65,13 @@ bool MainWindow::initialize_database()
 
     QFile dbfile;
     dbfile.setFileName(db_filename);
-    if (dbfile.exists())
-        return true;
-    if (utility::create_database(db_filename))
-        return true;
+    if (dbfile.exists() || utility::create_database(db_filename)) {
+        QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "main");
+        db.setDatabaseName(db_filename);
+        if (db.open())
+            return true;
+    }
     return false;
-}
-
-void MainWindow::initialize_models()
-{
-//    employee_model = new QSqlRelationalTableModel(0, db->get_db());
-//    employee_model->setTable("employee");
-//    employee_model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-
-//    employee_model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
-//    employee_model->setHeaderData(1, Qt::Horizontal, QObject::tr("Last Name"));
-//    employee_model->setHeaderData(2, Qt::Horizontal, QObject::tr("First Name"));
-//    employee_model->setHeaderData(3, Qt::Horizontal, QObject::tr("Max Hours"));
-//    employee_model->setHeaderData(4, Qt::Horizontal, QObject::tr("Displayed"));
-//    employee_model->setHeaderData(5, Qt::Horizontal, QObject::tr("Display Color"));
-
-//    employee_model->select();
-
-    // add shift model here once employee model is shown to work
 }
 
 void MainWindow::initialize_views()

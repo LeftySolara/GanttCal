@@ -16,6 +16,7 @@ SOURCES += \
     src/utility/utility.cpp \
     src/main.cpp \
     src/shift/shift.cpp \
+    src/models/employeetablemodel.cpp
 
 HEADERS += \
     src/database/database.h \
@@ -23,7 +24,8 @@ HEADERS += \
     src/ui/addemployeedialog.h \
     src/ui/mainwindow.h \
     src/utility/utility.h \
-    src/shift/shift.h
+    src/shift/shift.h \
+    src/models/employeetablemodel.h
 
 FORMS += \
     src/ui/addemployeedialog.ui \

@@ -22,10 +22,8 @@
 #define MAINWINDOW_H
 
 #include "database/database.h"
+#include "models/employeetablemodel.h"
 #include <QMainWindow>
-#include <QTableView>
-#include <QSqlRelationalTableModel>
-#include <QSqlRelationalDelegate>
 #include <QErrorMessage>
 
 namespace Ui {
@@ -41,7 +39,6 @@ public:
     ~MainWindow();
     void initialize_settings();
     bool initialize_database();
-    void initialize_models();
     void initialize_views();
 
 private slots:
@@ -53,6 +50,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QErrorMessage errmsg;
+    EmployeeTableModel employee_model;
 //    Database *db;
 //    QSqlRelationalTableModel *employee_model;
 //    QTableView *view;
