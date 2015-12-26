@@ -37,3 +37,17 @@ TEST_CASE( "The model can be created" )
     EmployeeTableModel model;
     REQUIRE( model.database().databaseName() == TEST_DB );
 }
+
+TEST_CASE( "The number of rows can be counted" )
+{
+    EmployeeTableModel model;
+    REQUIRE( model.database().databaseName() == TEST_DB );
+    REQUIRE( model.rowCount() == 0);
+}
+
+TEST_CASE( "The number of columns can be counted" )
+{
+    EmployeeTableModel model;
+    REQUIRE( model.database().databaseName() == TEST_DB );
+    REQUIRE( model.columnCount() == 6 );
+}
