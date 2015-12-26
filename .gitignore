@@ -36,6 +36,7 @@ Makefile*
 *build-GanttCal-Desktop-Debug
 *build-GanttCal-Desktop-Release
 *build-debug
+*build-test
 
 #QtCtreator Qml
 *.qmlproject.user

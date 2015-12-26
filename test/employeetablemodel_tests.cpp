@@ -21,33 +21,19 @@
  * along with GanttCal.  If not, see <http://www.gnu.org/licenses/>.
  ***************************************************************************/
 
-#include "employeetablemodel.h"
+#include "catch.hpp"
+#include "models/employeetablemodel.h"
+#include "utility/utility.h"
+#include <QSqlDatabase>
 
-EmployeeTableModel::EmployeeTableModel(QObject *parent, QSqlDatabase database)
-{
-    db = QSqlDatabase::database("main");
-    setTable("employee");
-}
+#define TEST_DB "testdb.sqlite"
 
-EmployeeTableModel::~EmployeeTableModel()
+TEST_CASE( "The model can be created" )
 {
-    db.close();
-}
+    utility::create_database(TEST_DB);
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE", "main");
+    db.setDatabaseName(TEST_DB);
 
-QModelIndex EmployeeTableModel::index(int row, int column, const QModelIndex &parent) const
-{
-    QModelIndex idx = createIndex(row, column);
-    return idx;
-}
-
-int EmployeeTableModel::rowCount(const QModelIndex &parent) const
-{
-    QSqlQuery qry("SELECT COUNT(*) FROM employee");
-    qry.next();
-    return qry.numRowsAffected();
-}
-
-QSqlDatabase EmployeeTableModel::database() const
-{
-   return db;
+    EmployeeTableModel model;
+    REQUIRE( model.database().databaseName() == TEST_DB );
 }

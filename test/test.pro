@@ -1,5 +1,5 @@
 include(../defaults.pri)
-QT += core
+QT += core sql
 TEMPLATE = app
 
 CONFIG   += console C++11
@@ -9,9 +9,13 @@ CONFIG   -= app_bundle
 SOURCES += \
     main.cpp \
     shifts.cpp \
-    ../src/shift/shift.cpp \
     employees.cpp \
-    ../src/employee/employee.cpp
+    employeetablemodel_tests.cpp \
+    ../src/shift/shift.cpp \
+    ../src/employee/employee.cpp \
+    ../src/models/employeetablemodel.cpp \
+    ../src/utility/utility.cpp
 
 HEADERS += catch.hpp \
-    ../src/shift/shift.h
+    ../src/shift/shift.h \
+    ../src/models/employeetablemodel.h
